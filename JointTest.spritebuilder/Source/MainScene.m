@@ -31,6 +31,8 @@
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    CGPoint touchLocation = [touch locationInNode:self];
+    _mouseClickNode.position = touchLocation;
     _tagAlongNode.position = _mouseClickNode.position;
     _tagAlongNode.physicsBody.allowsRotation = FALSE;
     _testJoint = [CCPhysicsJoint connectedPivotJointWithBodyA:_tagAlongNode.physicsBody bodyB:_mouseClickNode.physicsBody anchorA:_tagAlongNode.anchorPointInPoints];
@@ -45,6 +47,7 @@
 - (void) touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [_testJoint invalidate];
+    NSLog(@"Joint Invalidated");
     _testJoint = nil;
     _tagAlongNode.physicsBody.allowsRotation = TRUE;
 }
